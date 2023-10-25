@@ -1,0 +1,23 @@
+{
+    "roles":[
+        {
+            "name":"agent",
+            "permissions":[
+                "createMachant",
+                "deleteManchant"
+            ]
+        },
+        {
+            "name":"merchant",
+            "permissions":[
+                "makePayment"
+            ]
+        },
+        {
+            "name":"user",
+            "permissions":[
+                ""
+            ]
+        }
+    ]
+}

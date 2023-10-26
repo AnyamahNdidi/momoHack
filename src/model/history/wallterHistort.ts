@@ -8,6 +8,7 @@ interface history {
     transactionType: string,
     status:string,
     date: string,
+    decs: string,
     recipients:string,
     time: string,
     amount:number,
@@ -37,6 +38,9 @@ const historySchema = new mongoose.Schema(
       type: String,
     },
     time: {
+      type: String,
+    },
+    decs: {
       type: String,
     },
     amount: {

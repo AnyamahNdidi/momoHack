@@ -19,7 +19,10 @@ export const  agentToAnotherWalet = asyncHandler(async(req: Request, res: Respon
     {
        const { id } = req.params;
 
-        const { walletId, amount } = req.body
+        const { walletId, amount, decs } = req.body
+        if (!walletId || !amount) {
+            return res.status(400).json({ message: "Fields can't be empty" });
+        }
         
             let receiverType;
         let receiver;
@@ -45,7 +48,7 @@ export const  agentToAnotherWalet = asyncHandler(async(req: Request, res: Respon
 
         // console.log("Receiver Type:", receiverType);
         console.log("Receiver Wallet:", receiverWallet);
-        // console.log("Receiver:", receiver);
+        console.log("Receiver:", receiver);
 
 
         // checking for sender
@@ -75,18 +78,104 @@ export const  agentToAnotherWalet = asyncHandler(async(req: Request, res: Respon
 
         // console.log("sender Type:", senderType);
         console.log("sender Wallet:", senderWallet);
-        // console.log("sender:", sender);
+        console.log("sender:", sender);
 
         const currentDate: Date = new Date();
     const time = currentDate.toLocaleTimeString(); // getting current time
-    const date = currentDate.toDateString(); 
+        const date = currentDate.toDateString(); 
+        
+        
+    if (!sender && !receiver) {
+      next(
+       new mainAppError({
+            name: "account not found",
+            message: "account can not be created",
+            status: HTTP.BAD_REQUEST,
+            isSuccess:false
+        })
+      );
+    }
+        if (sender && receiver)
+        {
+            if (amount > senderWallet?.balance!)
+            {
+                 return res.status(404).json({
+                message: "Insufficient fund",
+                });
+            } else
+            { 
+                if (sender?.walletId === walletId) {
+                    return res.status(404).json({
+                        message: "transaction fail",
+                    });
+                }
+                
 
+                // updating sender walltet balance
+            await walletModel.findByIdAndUpdate(senderWallet?._id,
+                    {
+                    balance: senderWallet?.balance! - amount,
+                    credit: 0,
+                    debit:amount
+                    },
+                    {new:true}
+                )
+
+                // this is sender history
+                const createSenderHistort = await walletHistory.create({
+                    message: `You Have Succefully sent ₦${amount}.00 to ${receiver?.fullName}`,
+                    RefrenceId: uuidv4(),
+                    status: "sent",
+                    transactionType: "Money-Transfer- walletId",
+                    time:time,
+                    date: date,
+                    decs,
+                    amount:amount
+                })
+
+                sender?.history?.push(new mongoose.Types.ObjectId(createSenderHistort?._id))
+                sender?.save()
+
+                    // updating reciever  walltet balance
+                    await walletModel.findByIdAndUpdate(receiverWallet?._id,
+                            {
+                            balance: receiverWallet?.balance! + amount,
+                            credit: amount,
+                            debit:0
+                            },
+                            {new:true}
+                )
+                
+                  // this is reciever history
+                const createRecievrHistort = await walletHistory.create({
+                    message: `Your account has been credited with ₦${amount}.00 from ${sender?.fullName}`,
+                    RefrenceId: uuidv4(),
+                    status: "recieved",
+                    transactionType: "Money-Recieved - walletId",
+                    time:time,
+                    date: date,
+                    decs,
+                    amount:amount
+                })
+
+                receiver?.history?.push(new mongoose.Types.ObjectId(createSenderHistort?._id))
+                receiver?.save()
+
+                 return res.status(201).json({
+                     message: "transaction successfull",
+                     result:createSenderHistort
+                });
+                
+            }
+        
     
-        return res.status(201).json({
-            message: "get all marcahnt",
+        } else
+        {
+              return res.status(404).json({
+            message: "account not found",
             
-            });      
-
+            });  
+    }
          
     } catch (error:any)
     {

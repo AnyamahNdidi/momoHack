@@ -4,33 +4,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const historySchema = new mongoose_1.default.Schema({
-    message: {
+const ajoSchema = new mongoose_1.default.Schema({
+    name: {
         type: String,
     },
-    RefrenceId: {
+    totalAmount: {
         type: String,
     },
-    recipients: {
+    fixedAmoud: {
         type: String,
     },
-    status: {
-        type: String,
+    user: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "marchants"
     },
-    transactionType: {
-        type: String,
-    },
-    date: {
-        type: String,
-    },
-    time: {
-        type: String,
-    },
-    decs: {
+    ownerName: {
         type: String,
     },
     amount: {
         type: Number,
-    },
+    }
 }, { timestamps: true });
-exports.default = mongoose_1.default.model("historys", historySchema);
+exports.default = mongoose_1.default.model("contobution", ajoSchema);

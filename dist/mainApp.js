@@ -12,12 +12,15 @@ const userRouter_1 = __importDefault(require("./router/userRouter"));
 const marchantRouter_1 = __importDefault(require("./router/marchantRouter"));
 const fundWalletRouter_1 = __importDefault(require("./router/fundWalletRouter"));
 const transferRounter_1 = __importDefault(require("./router/transferRounter"));
+const contibutionRouter_1 = __importDefault(require("./router/contibutionRouter"));
 const mainApp = (app) => {
     app.use(express_1.default.json()).use((0, cors_1.default)())
         .use("/api/v1", userRouter_1.default)
         .use("/api/v1", marchantRouter_1.default)
         .use("/api/v1", fundWalletRouter_1.default)
         .use("/api/v1", transferRounter_1.default)
+        .use("/api/v1", transferRounter_1.default)
+        .use("/api/v1", contibutionRouter_1.default)
         .use((0, cookie_session_1.default)({
         name: "session",
         keys: ["key1", "keys2"],

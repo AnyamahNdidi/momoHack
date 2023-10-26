@@ -9,20 +9,27 @@ const ajoSchema = new mongoose_1.default.Schema({
         type: String,
     },
     totalAmount: {
+        type: Number,
+    },
+    agentIncharge: {
         type: String,
     },
-    fixedAmoud: {
-        type: String,
+    fixedAmount: {
+        type: Number,
     },
     user: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "marchants"
     },
+    agent: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "agents"
+    },
     ownerName: {
         type: String,
     },
-    amount: {
-        type: Number,
-    }
+    // amount: {
+    //   type: Number,
+    // }
 }, { timestamps: true });
 exports.default = mongoose_1.default.model("contobution", ajoSchema);

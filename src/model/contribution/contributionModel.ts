@@ -5,10 +5,11 @@ import mongoose from "mongoose";
 interface contribution {
     name: string,
     totalAmount: number,
-    fixedAmoud: number,
-    user:string,
-    amount: number,
-    ownerName:number
+    fixedAmount: number,
+    user: string,
+    agent:string,
+    ownerName: number,
+    agentIncharge:string
 
 }
 
@@ -20,21 +21,28 @@ const ajoSchema = new mongoose.Schema(
       type: String,
     },
     totalAmount: {
+      type: Number,
+    },
+    agentIncharge: {
       type: String,
     },
-    fixedAmoud: {
-      type: String,
+    fixedAmount: {
+      type: Number,
     },
     user: {
          type: mongoose.Schema.Types.ObjectId,
         ref:"marchants"
     },
+    agent: {
+         type: mongoose.Schema.Types.ObjectId,
+        ref:"agents"
+    },
     ownerName: {
          type: String,
     },
-    amount: {
-      type: Number,
-    }
+    // amount: {
+    //   type: Number,
+    // }
   },
   { timestamps: true },
 );

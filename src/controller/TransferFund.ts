@@ -10,7 +10,7 @@ import bcrypt from "bcrypt"
 import {v4 as uuidv4} from 'uuid';
 import marchantModel from "../model/user/mercahntProfile"
 import { TokenGenerator } from "../utils/GenerateToken"
-import axios from "axios"
+import fetch from "node-fetch"
 
 
 

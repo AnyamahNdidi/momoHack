@@ -14,3 +14,4 @@ declare module "*multer";
 declare module "*dotenv";
 declare module "*validator";
 declare module "*swagger-jsdoc";
+declare module "*node-fetch";

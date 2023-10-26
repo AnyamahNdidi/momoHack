@@ -5,6 +5,7 @@ import { errorHandler } from "./middleware/ErrorHandler"
 import agentRouter from "./router/userRouter"
 import marchantRouter from "./router/marchantRouter"
 import fundWalletRouter from "./router/fundWalletRouter"
+import sendFundRouter from "./router/transferRounter"
 
 export const mainApp = (app:Application) => {
     
@@ -12,6 +13,7 @@ export const mainApp = (app:Application) => {
         .use("/api/v1", agentRouter)
         .use("/api/v1", marchantRouter)
         .use("/api/v1", fundWalletRouter)
+        .use("/api/v1", sendFundRouter)
         
       
         .use(cookie({

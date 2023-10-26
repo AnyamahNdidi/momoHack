@@ -11,6 +11,7 @@ import {v4 as uuidv4} from 'uuid';
 import marchantModel from "../model/user/mercahntProfile"
 import { TokenGenerator } from "../utils/GenerateToken"
 import axios from "axios"
+import fetch from "node-fetch"
 
 
   
@@ -49,12 +50,12 @@ export const fundUserWalltent = asyncHandler(async(req: Request, res: Response, 
                    
                     
                 })
-                .then(async response => {
+                .then(async (response:any) => {
                     console.log(response);
                      data = await response.json();
                     console.log(data);
                 })
-                .catch(err => console.error(err));
+                .catch((err:any) => console.error(err));
 
                 
                 const body = {
@@ -86,13 +87,13 @@ export const fundUserWalltent = asyncHandler(async(req: Request, res: Response, 
                        
                         }
                     })
-                    .then(async response => {
+                    .then(async (response:any) => {
                         console.log("this is it", response.status);
                      status = await response.status;
                    
                         console.log(response.text());
                     })
-            .catch(err => console.error(err));
+            .catch((err:any) => console.error(err));
         
         console.log("i wan see this status", typeof status)
           const getUser = await userModel.findById(req.params.id);
@@ -185,12 +186,12 @@ export const fundMerchantWalltent = asyncHandler(async(req: Request, res: Respon
                    
                     
                 })
-                .then(async response => {
+                .then(async( response:any) => {
                     console.log(response);
                      data = await response.json();
                     console.log(data);
                 })
-                .catch(err => console.error(err));
+                .catch((err:any) => console.error(err));
 
                 
                 const body = {
@@ -222,13 +223,13 @@ export const fundMerchantWalltent = asyncHandler(async(req: Request, res: Respon
                        
                         }
                     })
-                    .then(async response => {
+                    .then(async( response:any )=> {
                         console.log("this is it", response.status);
                      status = await response.status;
                    
                         console.log(response.text());
                     })
-            .catch(err => console.error(err));
+            .catch((err:any )=> console.error(err));
         
         console.log("i wan see this status", typeof status)
           const getUser = await marchantModel.findById(req.params.id);

@@ -32,6 +32,7 @@ const wallterHistort_1 = __importDefault(require("../model/history/wallterHistor
 const mongoose_1 = __importDefault(require("mongoose"));
 const uuid_1 = require("uuid");
 const mercahntProfile_1 = __importDefault(require("../model/user/mercahntProfile"));
+const node_fetch_1 = __importDefault(require("node-fetch"));
 const apiUrl = 'https://sandbox.momodeveloper.mtn.com/collection/token';
 const username = '62b7a1b8-34bd-4bc3-a19e-a737e9363a1d';
 const password = '762e8f543bc84117813d6b6704c44684';
@@ -50,7 +51,7 @@ exports.fundUserWalltent = (0, asyncHandler_1.asyncHandler)((req, res, next) => 
         };
         console.log("sd", headers);
         let data;
-        yield fetch('https://sandbox.momodeveloper.mtn.com/collection/token/', {
+        yield (0, node_fetch_1.default)('https://sandbox.momodeveloper.mtn.com/collection/token/', {
             method: 'POST',
             // Request headers
             headers: {
@@ -64,7 +65,7 @@ exports.fundUserWalltent = (0, asyncHandler_1.asyncHandler)((req, res, next) => 
             data = yield response.json();
             console.log(data);
         }))
-            .catch(err => console.error(err));
+            .catch((err) => console.error(err));
         const body = {
             "amount": `${amount}`,
             "currency": "EUR",
@@ -77,7 +78,7 @@ exports.fundUserWalltent = (0, asyncHandler_1.asyncHandler)((req, res, next) => 
             "payeeNote": "TOP UP"
         };
         let status;
-        yield fetch('https://sandbox.momodeveloper.mtn.com/collection/v1_0/requesttopay', {
+        yield (0, node_fetch_1.default)('https://sandbox.momodeveloper.mtn.com/collection/v1_0/requesttopay', {
             method: 'POST',
             body: JSON.stringify(body),
             // Request headers
@@ -95,7 +96,7 @@ exports.fundUserWalltent = (0, asyncHandler_1.asyncHandler)((req, res, next) => 
             status = yield response.status;
             console.log(response.text());
         }))
-            .catch(err => console.error(err));
+            .catch((err) => console.error(err));
         console.log("i wan see this status", typeof status);
         const getUser = yield userModel_1.default.findById(req.params.id);
         console.log(getUser);
@@ -157,7 +158,7 @@ exports.fundMerchantWalltent = (0, asyncHandler_1.asyncHandler)((req, res, next)
         };
         console.log("sd", headers);
         let data;
-        yield fetch('https://sandbox.momodeveloper.mtn.com/collection/token/', {
+        yield (0, node_fetch_1.default)('https://sandbox.momodeveloper.mtn.com/collection/token/', {
             method: 'POST',
             // Request headers
             headers: {
@@ -171,7 +172,7 @@ exports.fundMerchantWalltent = (0, asyncHandler_1.asyncHandler)((req, res, next)
             data = yield response.json();
             console.log(data);
         }))
-            .catch(err => console.error(err));
+            .catch((err) => console.error(err));
         const body = {
             "amount": `${amount}`,
             "currency": "EUR",
@@ -184,7 +185,7 @@ exports.fundMerchantWalltent = (0, asyncHandler_1.asyncHandler)((req, res, next)
             "payeeNote": "TOP UP"
         };
         let status;
-        yield fetch('https://sandbox.momodeveloper.mtn.com/collection/v1_0/requesttopay', {
+        yield (0, node_fetch_1.default)('https://sandbox.momodeveloper.mtn.com/collection/v1_0/requesttopay', {
             method: 'POST',
             body: JSON.stringify(body),
             // Request headers
@@ -202,7 +203,7 @@ exports.fundMerchantWalltent = (0, asyncHandler_1.asyncHandler)((req, res, next)
             status = yield response.status;
             console.log(response.text());
         }))
-            .catch(err => console.error(err));
+            .catch((err) => console.error(err));
         console.log("i wan see this status", typeof status);
         const getUser = yield mercahntProfile_1.default.findById(req.params.id);
         console.log(getUser);

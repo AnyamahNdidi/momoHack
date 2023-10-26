@@ -20,7 +20,7 @@ export const  createContribution = asyncHandler(async(req: Request, res: Respons
       
         const { maerchantId } = req.params;
 
-        const { fixedAmount } = req.body
+
         
         const agentDetails = await userModel.findById(req.params.agentId)
 
@@ -50,7 +50,7 @@ export const  createContribution = asyncHandler(async(req: Request, res: Respons
 
         const creatAjoData: any = await contibutionModel.create({
             name:"ajo",
-            fixedAmount,
+            fixedAmount:0,
             ownerName: merchantDetails?.fullName,
             agentIncharge: agentDetails?.fullName,
             totalAmount: 0

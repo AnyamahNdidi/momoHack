@@ -21,7 +21,6 @@ const mercahntProfile_1 = __importDefault(require("../model/user/mercahntProfile
 exports.createContribution = (0, asyncHandler_1.asyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { maerchantId } = req.params;
-        const { fixedAmount } = req.body;
         const agentDetails = yield userModel_1.default.findById(req.params.agentId);
         console.log(agentDetails);
         if (!agentDetails) {
@@ -44,7 +43,7 @@ exports.createContribution = (0, asyncHandler_1.asyncHandler)((req, res, next) =
         }
         const creatAjoData = yield contributionModel_1.default.create({
             name: "ajo",
-            fixedAmount,
+            fixedAmount: 0,
             ownerName: merchantDetails === null || merchantDetails === void 0 ? void 0 : merchantDetails.fullName,
             agentIncharge: agentDetails === null || agentDetails === void 0 ? void 0 : agentDetails.fullName,
             totalAmount: 0
